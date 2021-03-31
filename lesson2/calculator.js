@@ -4,17 +4,29 @@
 // perform the operation
 // display the result of the operation
 
+const LANGUAGE = 'en';
+
+const MESSAGES = require('./calculator_messages.json');
+
 const readline = require('readline-sync');
 
 function prompt(msg) {
   console.log(`=> ${msg}`)
 }
 
+function messages(message, lang='en') {
+  return MESSAGES[lang][messages]
+}
+
 function invalidNumber(num) {
   return num.trimStart() === '' || Number.isNaN(Number(num));
 }
 
-prompt("Welcome to the Calculator!");
+prompt(messages('welcome', LANGUAGE));
+let object = readline.question();
+
+
+while (true) {
 
 prompt("What is the first number?");
 let number1 = readline.question();
@@ -58,3 +70,9 @@ switch (operation) {
 }
 
 prompt(`The result is ${output}.`)
+
+  prompt('Would you like to perform another operation? (y/n)');
+  let answer = readline.question();
+
+  if (answer[0].toLowerCase() !== 'y') break;
+}
